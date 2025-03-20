@@ -1722,8 +1722,8 @@ class VmwareCollector():
 
             # Numeric Sensor Info
             sensors = host.get('runtime.healthSystemRuntime.systemHealthInfo.numericSensorInfo', '').split(',') + \
-                      host.get('runtime.healthSystemRuntime.hardwareStatusInfo.cpuStatusInfo', '').split(',') + \
-                      host.get('runtime.healthSystemRuntime.hardwareStatusInfo.memoryStatusInfo', '').split(',')
+                host.get('runtime.healthSystemRuntime.hardwareStatusInfo.cpuStatusInfo', '').split(',') + \
+                host.get('runtime.healthSystemRuntime.hardwareStatusInfo.memoryStatusInfo', '').split(',')
 
             sensors = [s for s in sensors if ':' in s]
 
@@ -1909,9 +1909,10 @@ class VmwareCollector():
                             snapshot.id.id,
                         ], int(snapshot.createTime.timestamp()))
                 except vim.fault.NotFound:
-                    logging.error("Snapshot info for volume %s not found",volume_ref.id)
+                    logging.error("Snapshot info for volume %s not found", volume_ref.id)
                 except Exception as error:
                     logging.error("Error fetching snapshot information for volume: %s", volume_ref.id, error)
+
 
 class ListCollector(object):
 
